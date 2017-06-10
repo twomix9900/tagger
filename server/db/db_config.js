@@ -1,11 +1,11 @@
 const Sequelize = require('sequelize')
-const POSTGRES_URL = require('../../config')
-const db = new Sequelize(POSTGRES_URL)
+const db = new Sequelize('notes', 'student', 'student', {
+  dialect: 'mysql'
+});
 
 const Notes = db.define('notes', {
-  entry: {
-    type: Sequelize.STRING(255)
-  }
+  title: Sequelize.STRING,
+  entry: Sequelize.STRING
 });
 
 Notes.sync();

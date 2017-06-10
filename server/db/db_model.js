@@ -4,9 +4,9 @@ const router = express.Router()
 const db = require('../db/db_config')
 
 
-
 router.post('/addNote', (req, res) => {
   db.Notes.create({
+    title: req.body.title,
     entry: req.body.entry
   })
     .then(note =>
@@ -30,6 +30,7 @@ router.get('/getAllNotes', (req, res) => {
 router.delete('/deleteNote', (req, res) => {
   db.Notes.destroy({
     where: {
+      title: req.body.title, 
       id: req.body.id,
       entry: req.body.entry
     }
@@ -44,7 +45,7 @@ router.delete('/deleteNote', (req, res) => {
 
 router.post('/updateNote', (req, res) => {
   db.Notes.update(
-    { entry: req.body.entry },
+    { title: req.body.title, entry: req.body.entry },
     { where: { id: req.body.id }})
   .then(note => {
     res.send(note)
