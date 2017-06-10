@@ -28,19 +28,30 @@ router.get('/getAllNotes', (req, res) => {
 })
 
 router.delete('/deleteNote', (req, res) => {
-  console.log('req.body is ', req.body)
   db.Notes.destroy({
     where: {
-      id: req.body.id
+      id: req.body.id,
+      entry: req.body.entry
     }
   })
     .then(note => {
-      console.log('the note has been deleted!!!', note)
       res.sendStatus(200)
     })
     .catch(error =>
       res.send(error)
     )
+})
+
+router.post('/updateNote', (req, res) => {
+  db.Notes.update(
+    { entry: req.body.entry },
+    { where: { id: req.body.id }})
+  .then(note => {
+    res.send(note)
+  })
+  .catch(error => 
+    res.send(error)
+  )
 })
 
 module.exports = router
