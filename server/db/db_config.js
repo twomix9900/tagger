@@ -2,16 +2,17 @@ const Sequelize = require('sequelize')
 const POSTGRES_URL = require('../../config')
 const db = new Sequelize(POSTGRES_URL)
 
-const Notes = db.define('Notes', {
-  Body: {
+const Notes = db.define('notes', {
+  entry: {
     type: Sequelize.STRING(255)
-  },
-  Date: {
-    type: Sequelize.DATEONLY()
   }
 });
 
 Notes.sync();
+
+//Notes.sync({force: true}); // RESET DB
+
+
 
 db.authenticate()
   .then(function (err) {
